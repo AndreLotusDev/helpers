@@ -1,0 +1,1 @@
+@Html.ActionLink(item.NumProcesso, "_ProcessoResumo", $"GestaoProcessual", new { numPasta = item.NumPasta, linkPdf = item.LinkPdf }, new { @class = "link-efect", @style = "color: #337ab7", @target = "_blank" })
