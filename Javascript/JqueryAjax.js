@@ -1,7 +1,7 @@
  $.ajax({
-        url: "_OpenPdfProcess",
+        url: "OpenPdf",
         type: "POST",
-        data: numeroPasta,
+        data: infoProController,
         async: true,
         success: function (conteudo)
         {
