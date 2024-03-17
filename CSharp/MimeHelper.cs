@@ -4,4 +4,8 @@ public class MimeHelper : IMimeHelper
         var found = new FileExtensionContentTypeProvider().TryGetContentType(path, out var contentType);
         return contentType;
     }
+
+    public string Format { get; set; }
+
+    public static string XSLX_FORMAT = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 }
