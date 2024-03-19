@@ -1,30 +1,36 @@
-public static class PaginationHelper
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Helpers
 {
-    public static async Task<(IQueryable<T> queryPaginated, int totalFound, int totalFoundAfterPagination, int totalPages)> PaginateAsync<T>(this IQueryable<T> toPaginate, int pageSize, int pageNumber)
+    public static class PaginationHelper
     {
-        var cutPagination = toPaginate
-            .Skip(pageSize * (pageNumber - 1))
-            .Take(pageSize);
-
-        var totalFound = await Task.Run(() => toPaginate.Count());
-        var totalFoundAfterPagination = await Task.Run(() => cutPagination.Count());
-
-        var totalPages = (int)Math.Ceiling((double)totalFound / pageSize);
-        return new(cutPagination, totalFound, totalFoundAfterPagination, totalPages);
-    }
-
-    public static int CalculateTheTotalPages(int quantityOfItemsFound, int pageSize)
-    {
-        int totalPages = 0;
-        try
+        public static IQueryable<T> Paginate<T>(this IQueryable<T> query, int? index, int? offset)
         {
-            totalPages = quantityOfItemsFound / pageSize;
-            return totalPages;
+            if (index != null)
+            {
+                query = query.Skip(index.Value);
+            }
+            if (offset != null)
+            {
+                query = query.Take(offset.Value);
+            }
+
+            return query;
         }
-        catch (Exception)
+
+        public static IEnumerable<T> Paginate<T>(this IEnumerable<T> list, int? index, int? offset)
         {
-            totalPages = 0;
-            return totalPages;
+            if (index != null)
+            {
+                list = list.Skip(index.Value);
+            }
+            if (offset != null)
+            {
+                list = list.Take(offset.Value);
+            }
+
+            return list;
         }
     }
 }
