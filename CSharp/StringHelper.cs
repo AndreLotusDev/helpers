@@ -6,6 +6,26 @@ namespace Helpers
 {
     public static class StringHelper
     {
+
+        public static void SaveStringToFile(string filePath, string content)
+        {
+            try
+            {
+                File.WriteAllText(filePath, content);
+                Console.WriteLine("File saved successfully at: " + filePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+
+
+        public static string GetDesktopPath()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        }
+
         public static string ToReverseString(this string value)
         {
             return new string(value.Reverse().ToArray());
@@ -34,7 +54,7 @@ namespace Helpers
 
         public static string FirstCharToUpper(this string input)
         {
-            if(input.Length == 0)
+            if (input.Length == 0)
             {
                 return input;
             }
@@ -48,7 +68,7 @@ namespace Helpers
             }
 
             var words = input.Split(" ").ToList();
-            if(words.Last() == " " || words.Last() == "")
+            if (words.Last() == " " || words.Last() == "")
             {
                 words.RemoveAt(words.IndexOf(words.Last()));
             }
@@ -61,7 +81,8 @@ namespace Helpers
 
         public static string TranslateEnum(EReturnMessageOperation eReturnMessageOperation)
         {
-            switch (eReturnMessageOperation) {
+            switch (eReturnMessageOperation)
+            {
                 case EReturnMessageOperation.SUCCESSFULLY_ADDED:
                     return "Successfully added!";
                 case EReturnMessageOperation.SUCCESSFULLY_UPDATED:
@@ -85,7 +106,7 @@ namespace Helpers
 
         public static string JointAllMessages(IEnumerable<string> messages)
         {
-            return String.Join("",messages.Select(s => "| " + s + " |"));
+            return String.Join("", messages.Select(s => "| " + s + " |"));
         }
 
     }
